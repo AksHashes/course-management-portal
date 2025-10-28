@@ -31,5 +31,11 @@ public class StudentController {
     public List<Student> getStudentByCourses(@PathVariable("courseId") Long CourseId){
         return studentService.getStudentByCourseId(CourseId);
     }
+    //Delete student by id
+    @DeleteMapping("/{id}")
+    public String deleteStudent(@PathVariable Long id){
+        studentService.deleteStudent(id);
+        return "student with id :" +id+" has been deleted successfully";
+    }
 }
 

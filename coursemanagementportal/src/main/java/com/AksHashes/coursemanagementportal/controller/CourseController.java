@@ -1,28 +1,43 @@
 package com.AksHashes.coursemanagementportal.controller;
+
 import com.AksHashes.coursemanagementportal.model.Courses;
-import com.AksHashes.coursemanagementportal.repository.CourseRepository;
+import com.AksHashes.coursemanagementportal.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/courses")
 public class CourseController {
+
     @Autowired
-    private CourseRepository courseRepository;
-//Get all courses
+    private CourseService courseService;
+
     @GetMapping
-    public List<Courses> getAllCourses(){
-        return courseRepository.findAll();
+    public List<Courses> getAllCourses() {
+        return courseService.getAllCourses();
     }
-//Add a new course
+
     @PostMapping
-    public Courses addCourse(@RequestBody Courses courses){
-        return courseRepository.save(courses);
+    public Courses addCourse(@RequestBody Courses course) {
+        return courseService.addCourse(course);
     }
-//Delete mapping("/{id}")
+
+    @GetMapping("/{id}")
+    public Optional<Courses> getCourseById(@PathVariable Long id) {
+        return courseService.getCourseById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Courses updateCourse(@PathVariable Long id, @RequestBody Courses updatedCourse) {
+        return courseService.updateCourse(id, updatedCourse);
+    }
+
     @DeleteMapping("/{id}")
-    public String deleteCourses(@PathVariable Long id){
-        courseRepository.deleteById(id);
-        return "Course deleted successfully";
+    public String deleteCourse(@PathVariable Long id) {
+        courseService.deleteCourse(id);
+        return "Course with ID " + id + " deleted successfully!";
     }
 }
