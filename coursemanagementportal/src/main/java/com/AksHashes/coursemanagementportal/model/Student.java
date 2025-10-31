@@ -1,5 +1,6 @@
 package com.AksHashes.coursemanagementportal.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -20,6 +21,7 @@ public class Student {
 
     @ManyToOne
     @JoinColumn(name = "course_id")
+    @JsonBackReference
     private Courses courses;
     //constructors
     public Student(){}
